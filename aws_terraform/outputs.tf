@@ -43,10 +43,6 @@ output "security_group_rds_id" {
   value       = aws_security_group.mydb_security_group.id
 }
 
-output "ec2_instance_public_ip" {
-  value = aws_instance.my_ec2_instance.public_ip
-}
-
 output "key_pair_name" {
   description = "The name of the key pair"
   value       = aws_key_pair.my_keypair.key_name
