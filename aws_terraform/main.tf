@@ -77,7 +77,7 @@ resource "aws_security_group" "my_ec2_security_group" {
 
 resource "aws_key_pair" "cdc_keypair" {
   key_name   = "cdc_keypair"
-  public_key = file("${path.module}/cdc-keypair.pub")
+  public_key = file("${path.module}/cdc_keypair.pub")
 }
 
 resource "aws_instance" "my_ec2_instance" {
