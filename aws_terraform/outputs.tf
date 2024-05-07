@@ -42,18 +42,3 @@ output "security_group_rds_id" {
   description = "The ID of the RDS security group"
   value       = aws_security_group.mydb_security_group.id
 }
-
-output "key_pair_name" {
-  description = "The name of the key pair"
-  value       = aws_key_pair.my_keypair.key_name
-}
-
-output "key_pair_key_fingerprint" {
-  description = "The fingerprint of the key pair"
-  value       = aws_key_pair.my_keypair.key_fingerprint
-}
-
-output "key_pair_public_key" {
-  description = "The public key of the key pair"
-  value       = aws_key_pair.my_keypair.public_key
-}
