@@ -27,7 +27,7 @@ resource "aws_subnet" "my_subnet_1" {
   vpc_id            = aws_vpc.my_vpc.id
   cidr_block        = var.subnet_cidrs[0]
   availability_zone = var.availability_zones[0]
-
+  map_public_ip_on_launch = true
   tags = {
     Name = "cdc"
   }
@@ -37,7 +37,7 @@ resource "aws_subnet" "my_subnet_2" {
   vpc_id            = aws_vpc.my_vpc.id
   cidr_block        = var.subnet_cidrs[1]
   availability_zone = var.availability_zones[1]
-
+  map_public_ip_on_launch = true
   tags = {
     Name = "cdc"
   }
@@ -82,6 +82,7 @@ resource "aws_instance" "my_ec2_instance" {
   vpc_security_group_ids = [aws_security_group.my_ec2_security_group.id]
   key_name      = "cdc_keypair"
   depends_on = [aws_security_group.my_ec2_security_group]
+  associate_public_ip_address = true
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
