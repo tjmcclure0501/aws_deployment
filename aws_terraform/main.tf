@@ -80,7 +80,7 @@ resource "aws_instance" "my_ec2_instance" {
   instance_type = var.ec2_instance_type
   subnet_id     = aws_subnet.my_subnet_1.id
   security_groups = [aws_security_group.my_ec2_security_group.name]
-  key_name      = aws_key_pair.cdc_keypair.cdc_keypair
+  key_name      = "cdc_keypair"
 
   user_data = <<-EOF
               #!/bin/bash
