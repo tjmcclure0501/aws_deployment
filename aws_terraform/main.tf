@@ -87,6 +87,36 @@ resource "aws_instance" "my_ec2_instance" {
               #!/bin/bash
               sudo yum update -y
               sudo yum install -y postgresql
+              cat <<'END' > /home/ec2-user/contract.sql
+              CREATE TABLE contract (
+                contract_id SERIAL PRIMARY KEY,
+                start_date DATE NOT NULL,
+                end_date DATE,
+                status VARCHAR(100),
+                party_details TEXT
+              );
+              END
+              cat <<'END' > /home/ec2-user/insert_contract.sql
+              INSERT INTO contract (start_date, end_date, status, party_details) VALUES
+              ('2022-01-01', '2023-01-01', 'Active', 'Contract for Project X'),
+              ('2022-02-01', NULL, 'Ongoing', 'Open-ended contract for services');
+              END
+              cat <<'END' > /home/ec2-user/product.sql
+              CREATE TABLE product (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                description TEXT,
+                nav NUMERIC(10, 2),  -- NAV: Net Asset Value
+                total_assets NUMERIC(15, 2), -- Total assets under management
+                inception_date DATE,
+                contract_id INTEGER REFERENCES contract(contract_id) ON DELETE SET NULL
+              );
+              END
+              cat <<'END' > /home/ec2-user/insert_product.sql
+              INSERT INTO product (name, description, nav, total_assets, inception_date, contract_id) VALUES
+              ('Fund A', 'A mutual fund focused on equities.', 22.50, 15000000.00, '2021-01-01', 1),
+              ('Fund B', 'A mutual fund focused on bonds.', 14.75, 8000000.00, '2021-01-01', 2);
+              END
               EOF
 
   tags = {
