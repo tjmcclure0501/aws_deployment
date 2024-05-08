@@ -75,17 +75,12 @@ resource "aws_security_group" "my_ec2_security_group" {
   }
 }
 
-resource "aws_key_pair" "cdc_keypair" {
-  key_name   = "cdc_keypair"
-  public_key = file("${path.module}/cdc_keypair.pub")
-}
-
 resource "aws_instance" "my_ec2_instance" {
   ami           = var.ami_id
   instance_type = var.ec2_instance_type
   subnet_id     = aws_subnet.my_subnet_1.id
   security_groups = [aws_security_group.my_ec2_security_group.name]
-  key_name      = aws_key_pair.cdc_keypair.key_name
+  key_name      = aws_key_pair.cdc_keypair.cdc_keypair
 
   user_data = <<-EOF
               #!/bin/bash

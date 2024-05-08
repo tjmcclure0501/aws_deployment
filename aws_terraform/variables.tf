@@ -37,7 +37,7 @@ variable "ec2_instance_type" {
 variable "postgres_version" {
   description = "The version of PostgreSQL for the RDS instance."
   type        = string
-  default     = "13.3"
+  default     = "16.2"
 }
 
 variable "ami_id" {
