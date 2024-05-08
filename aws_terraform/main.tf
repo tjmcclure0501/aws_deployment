@@ -79,9 +79,9 @@ resource "aws_instance" "my_ec2_instance" {
   ami           = var.ami_id
   instance_type = var.ec2_instance_type
   subnet_id     = aws_subnet.my_subnet_1.id
-  security_groups = [aws_security_group.my_ec2_security_group.name]
+  vpc_security_group_ids = [aws_security_group.my_ec2_security_group.id]
   key_name      = "cdc_keypair"
-
+  depends_on = [aws_security_group.my_ec2_security_group]
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
@@ -136,7 +136,7 @@ resource "aws_db_instance" "mydb" {
   name                 = var.db_name
   username             = var.db_username
   password             = var.db_password
-  parameter_group_name = "default.postgres13"
+  parameter_group_name = "postgres-16"
 
   db_subnet_group_name   = aws_db_subnet_group.mydb_subnet_group.name
   vpc_security_group_ids = [aws_security_group.mydb_security_group.id]
