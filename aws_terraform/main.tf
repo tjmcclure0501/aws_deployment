@@ -46,7 +46,7 @@ resource "aws_subnet" "my_subnet_2" {
 resource "aws_security_group" "my_ec2_security_group" {
   vpc_id = aws_vpc.my_vpc.id
 
-  name        = "myec2-security-group"
+  name        = "my_ec2_security_group"
   description = "Allow SSH and ICMP"
 
   ingress {
@@ -105,7 +105,7 @@ resource "aws_db_subnet_group" "mydb_subnet_group" {
 resource "aws_security_group" "mydb_security_group" {
   vpc_id = aws_vpc.my_vpc.id
 
-  name        = "mydb-security-group"
+  name        = "mydb_security_group"
   description = "Allow PostgreSQL"
 
   ingress {
